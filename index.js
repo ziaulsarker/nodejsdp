@@ -1,6 +1,17 @@
-import fs, { promises as fsPromise } from "node:fs";
+// practice exercise from nodejs design patters  exercise 4.1
 
-const concatFiles = (files = [], dest, cb) => {
+import fs from "node:fs";
+
+const concatFiles = (...args) => {
+  if (args.length < 4) {
+    console.error("not enough arguments supplied");
+    process.exit(1);
+  }
+
+  const cb = args.pop();
+  let dest = args.pop();
+  const files = args;
+
   const writeStream = fs.createWriteStream(dest);
 
   files.map((file) => {
@@ -10,6 +21,7 @@ const concatFiles = (files = [], dest, cb) => {
   });
 };
 
-concatFiles(["first.txt", "second.txt"], "dest.txt", (file, dest) => {
+//  testing fn
+concatFiles("first.txt", "second.txt", "dest.txt", (file, dest) => {
   console.log(`finised reading ${file} and writing to ${dest}`);
 });
