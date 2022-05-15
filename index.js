@@ -3,6 +3,7 @@
 import fs from "node:fs";
 
 const concatFiles = (...args) => {
+  // min of 4 args required (file1, file2, dest, cb)
   if (args.length < 4) {
     console.error("not enough arguments supplied");
     process.exit(1);
